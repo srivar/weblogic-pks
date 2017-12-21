@@ -1,0 +1,29 @@
+
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: unix-server
+  labels:
+    app: unix-server
+    visualize: "true"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: unix-server
+        visualize: "true"
+    spec:
+      containers:
+      - name: unix-server
+        image: srivar/unix-server
+        command:
+          - sleep
+          - infinity
+        volumeMounts:
+        - name: test-volume
+          mountPath: /data/wls-home # You'll install WLS Domain here
+      volumes:
+      - name: test-volume
+        persistentVolumeClaim:
+          claimName: pvc2

@@ -1,0 +1,32 @@
+
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: wls-legacy
+  labels:
+    app: wls-legacy
+    visualize: "true"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wls-legacy
+        visualize: "true"
+    spec:
+      containers:
+      - name: wls-legacy
+        image: srivar/wls-12-legacy
+        env:
+        - name: DOMAIN_HOME
+          value: /data/wls-home/test_domain
+        ports:
+        - name: wls-legacy
+          containerPort: 7001
+        volumeMounts:
+        - name: test-volume
+          mountPath: /data/wls-home # Existing WLS installation
+      volumes:
+      - name: test-volume
+        persistentVolumeClaim:
+          claimName: pvc2

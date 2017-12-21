@@ -1,0 +1,53 @@
+---
+jobs:
+
+- name: build-wls-pks
+  build_logs_to_retain: 10
+  public: true
+  serial: true
+  plan:
+  - get: source
+  - task: download-jre
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: ubuntu
+      inputs:
+      - name: source
+      outputs:
+      - name: source-jre
+      run:
+        path: sh
+        args:
+        - -exc
+        - |
+          apt-get update -y
+          apt-get install wget -y
+          wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/server-jre-8u144-linux-x64.tar.gz"
+          cp -r ./source/. ./source-jre
+          mv server*gz ./source-jre/java8
+          find .
+  - put: java8-docker-image
+    params:
+      build: source-jre/java8
+
+##################################################
+# RESOURCES
+##################################################
+
+resources:
+- name: source
+  type: git
+  source:
+    uri: git@github.com:mborges-pivotal/weblogic-ee-kubo.git
+    private_key: {{git-private-key}}
+
+- name: java8-docker-image
+  type: docker-image
+  source:
+    email: {{docker-hub-email}}
+    username: {{docker-hub-username}}
+    password: {{docker-hub-password}}
+    repository: {{java8-docker-hub-image}}

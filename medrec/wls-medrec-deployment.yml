@@ -1,0 +1,23 @@
+
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: wls-medrec
+  labels:
+    app: wls-medrec
+    visualize: "true"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wls-medrec
+        visualize: "true"
+    spec:
+      containers:
+      - name: wls-medrec
+        image: srivar/wls-12212-medrec
+        ports:
+        - name: wls-medrec
+          containerPort: 7011
+

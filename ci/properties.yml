@@ -1,0 +1,4 @@
+docker-hub-email: mborges@pivotal.io
+docker-hub-username: mborges
+java8-docker-hub-image: mborges/wls-java8
+admin-docker-hub-image: mborges/wls-admin

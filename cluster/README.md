@@ -13,7 +13,7 @@ Build & Run instructions:
 https://github.com/Pivotal-Field-Engineering/weblogic-ee-kubo/tree/master/java8
 
 4. Deploy WLS Admin Server to PKS
-- kubectl apply -f  wls-adminserver-statefulset.yml --record
+- kubectl apply -f  wls-adminserver-statefulset.v2.yml --record
 - kubectl label services as-console http-route-sync=as-console
 - kubectl label services as-admin http-route-sync=as-admin
 
@@ -24,7 +24,7 @@ https://github.com/Pivotal-Field-Engineering/weblogic-ee-kubo/tree/master/java8
 - java weblogic.WLST configure-cluster.py
 
 6. Deploy WLS Cluster to PKS
-- kubectl apply -f wls-cluster-statefulset.yml --record
+- kubectl apply -f wls-cluster-statefulset.v2.yml --record
 - kubectl label services wls-cluster http-route-sync=wls-cluster
 
 7. Deploy test WLS app onto WLS Cluster

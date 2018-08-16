@@ -21,7 +21,7 @@ Build and Test instructions:
     
 5. Deploy image to PKS
     - kubectl apply -f wls-medrec-deployment.yml --record
-    - kubectl apply -f wls-medrec-service.yml --record
+    - kubectl apply -f wls-medrec-service.v2.yml --record
     - kubectl label services wls-medrec http-route-sync=wls-medrec
 
 MedRec app available at http://wls-medrec.apps.zubat.cf-app.com/medrec/

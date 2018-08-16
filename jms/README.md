@@ -12,13 +12,16 @@ Build & Run instructions:
 - Note this image uses a base java8 image, so build that first, if you haven't done so already
 https://github.com/Pivotal-Field-Engineering/weblogic-ee-kubo/tree/master/java8
 
-4. Create persistent storage on IaaS (vSphere in this case) and configure corresponding K8s artifacts around it
+[4. Create persistent storage on IaaS (vSphere in this case) and configure corresponding K8s artifacts around it
 - create VMDK file via ESX command line: vmkfstools -c 2G /vmfs/volumes/LUN01/Pods-Disks/Disk1.vmdk
-- create Persistent Volume:  kubectl apply -f vsphere-volume-pv.yml --record
-- create Persistent Volume Claim:  kubectl apply -f vsphere-volume-pvc.yml --record
+- create Persistent Volume:  kubectl apply -f vsphere-volume-pv.yml --record]
+
+4. Create StorageClass and PVC
+- create Persistent Volume Claim:  kubectl apply -f wls-jms-sc.v2.yml --record
+- create Persistent Volume Claim:  kubectl apply -f vsphere-volume-pvc.v2.yml --record
 
 5. Deploy image to PKS
-- kubectl apply -f wls-jms-statefulset.yml --record
+- kubectl apply -f wls-jms-statefulset.v2.yml --record
 - kubectl label services wls-jms-admin http-route-sync=wls-jms-admin
 - kubectl label services wls-jms-console http-route-sync=wls-jms-console
 
